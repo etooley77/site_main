@@ -10,9 +10,9 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Post Title</th>
-      <th scope="col">User</th>
-      <th scope="col">Posted at</th>
-      <th scope="col">Likes</th>
+      <th scope="col" style="text-align: center;">User</th>
+      <th scope="col" style="text-align: center;">Posted at</th>
+      <th scope="col" style="text-align: center;">Likes</th>
     </tr>
   </thead>
   <tbody>
@@ -22,9 +22,9 @@
             <tr>
                 <td><a href="{% url 'post' post.id %}">{{ post.id }}</a></td>
                 <td>{{ post.title }}</td>
-                <td>{{ post.username }}</td>
-                <td>{{ post.created_at }}</td>
-                <td> {{ 5 }} </td>
+                <td style="text-align: center;">{{ post.username }}</td>
+                <td style="text-align: center;">{{ post.created_at }}</td>
+                <td style="text-align: center;"> {{ 5 }} </td>
             </tr>
         {% endfor %}
 
