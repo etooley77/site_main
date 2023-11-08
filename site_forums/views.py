@@ -71,3 +71,8 @@ def create_post(request):
 	else:
 		messages.success(request, "You Must Be Logged In...")
 		return redirect('home')
+	
+def profile(request):
+	if request.user.is_authenticated:
+		profile = User.objects.all()
+		return render(request, 'profile.html', {'profile':profile})
