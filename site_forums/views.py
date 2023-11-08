@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm, CreatePost, LoginForm, CommentForm
-from .models import LoginUser, Comment, Post
+from .models import LoginUser, Comment, Post, User
 
 def home(request):
 	if request.user.is_authenticated:
+		user = User.objects.all()
 		posts = Post.objects.order_by('-id')
 		return render(request, 'home.html', {'posts':posts})
 	else:
