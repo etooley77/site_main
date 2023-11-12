@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm, CreatePost, LoginForm, CommentForm
-from .models import LoginUser, Comment, Post, User
+from .models import LoginUser, Post, User, Comment
 
 def home(request):
 	if request.user.is_authenticated:
-		user = User.objects.all()
+		#user = User.objects.all()
 		posts = Post.objects.order_by('-id')
 		return render(request, 'home.html', {'posts':posts})
 	else:
@@ -52,7 +52,17 @@ def register_user(request):
 def user_post(request, pk):
 	if request.user.is_authenticated:
 		user_post = Post.objects.get(id=pk)
-		return render(request, 'post.html', {'user_post':user_post})
+		comments = Comment.objects.filter(post=user_post).order_by('-commented_at')
+		if request.method == 'POST':
+			comment_form = CommentForm(request.POST)
+			if comment_form.is_valid():
+				new_comment = comment_form.save(commit=False)
+				new_comment.post = user_post
+				new_comment.username = request.user
+				new_comment.save()
+		else:
+			comment_form = CommentForm()
+		return render(request, 'post.html', {'user_post':user_post, 'comments':comments, 'comment_form':comment_form})
 	else:
 		messages.success(request, "You Must Be Logged In To View That Page...")
 		return redirect('home')

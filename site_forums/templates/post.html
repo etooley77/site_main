@@ -13,4 +13,51 @@
   <br/><br/>
 <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
 
+<br><br>
+
+<div class="comment_form" style="margin-left: 20%; margin-right: 20%; width: 60%;">
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">Add Comment</button>
+  </form>
+</div>
+
+<br><br>
+
+<div class="comments">
+
+  <div class="comment_section">
+
+    {% if comments %}
+
+      {% for comment in comments %}
+
+        <hr>
+
+        <div>
+          <h6 class="fw-bold mb-1"> {{ comment.username }} </h6>
+          <div class="d-flex align-items-center mb-3">
+            <p class="mb-0">
+              {{ comment.commented_at }}
+            </p>
+            <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
+            <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
+            <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+          </div>
+          <p class="mb-0">
+              {{ comment.content }}
+          </p>
+        </div>
+
+        <hr>
+
+      {% endfor %}
+
+    {% endif %}
+
+  </div>
+
+</div>
+
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import LoginUser, Comment, Post
+from .models import LoginUser, Post, Comment
 
 class SignUpForm(UserCreationForm):
 	email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
@@ -49,8 +49,9 @@ class LoginForm(forms.ModelForm):
 		exclude = ("user",)
 
 class CommentForm(forms.ModelForm):
-	content = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Comment", "class":"form-control"}), label="")
+	content = forms.CharField(widget=forms.widgets.Textarea(attrs={'placeholder':'Write a Comment!', 'class':'form-control', 'rows':3}), label="")
 
 	class Meta:
 		model = Comment
+		fields = ['content']
 		exclude = ("user",)
