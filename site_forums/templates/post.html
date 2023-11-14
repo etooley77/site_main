@@ -49,15 +49,6 @@
 
         <br>
 
-        <form method="post" action="" class="comment-form">
-          {% csrf_token %}
-          {{ reply_form.as_p }}
-          <input type="hidden" name="parent_comment_id" value="{{ parent_comment_id }}">
-          <button type="submit">Add Reply</button>
-        </form>
-
-        <br>
-
         <hr>
 
       {% endfor %}
