@@ -38,7 +38,7 @@ class CreatePost(forms.ModelForm):
 
 	class Meta:
 		model = Post
-		exclude = ("user",)
+		fields = ['title', 'content']
 
 class LoginForm(forms.ModelForm):
 	username = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Username", "class":"form-control"}), label="")

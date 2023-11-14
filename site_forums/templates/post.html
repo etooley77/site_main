@@ -41,14 +41,22 @@
             <p class="mb-0">
               {{ comment.commented_at }}
             </p>
-            <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
-            <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
-            <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
           </div>
           <p class="mb-0">
               {{ comment.content }}
           </p>
         </div>
+
+        <br>
+
+        <form method="post" action="" class="comment-form">
+          {% csrf_token %}
+          {{ reply_form.as_p }}
+          <input type="hidden" name="parent_comment_id" value="{{ parent_comment_id }}">
+          <button type="submit">Add Reply</button>
+        </form>
+
+        <br>
 
         <hr>
 

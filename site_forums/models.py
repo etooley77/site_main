@@ -25,3 +25,16 @@ class Comment(models.Model):
 
     def __str__(self):
         return(f'{ self.username.username } on { self.post.title }')
+    
+class Reply(models.Model):
+    comment = models.ForeignKey(Comment, related_name='replies', on_delete=models.CASCADE)
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    replied_at = models.DateTimeField(auto_now_add=True)
+    reply = models.TextField()
+
+    def __str__(self):
+        return self.username.username
+
+    @property
+    def get_replies(self):
+        return self.replies.all()
