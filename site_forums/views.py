@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import SignUpForm, CreatePost, LoginForm, CommentForm
-from .models import LoginUser, Post, User, Comment
+from .models import LoginUser, Post, User, Comment, Profile
 
 def home(request):
 	if request.user.is_authenticated:
@@ -81,8 +82,8 @@ def create_post(request):
 	else:
 		messages.success(request, "You Must Be Logged In...")
 		return redirect('home')
-	
+
 def profile(request):
 	if request.user.is_authenticated:
-		profile = User.objects.all()
+		profile = Profile.objects.all()
 		return render(request, 'profile.html', {'profile':profile})
