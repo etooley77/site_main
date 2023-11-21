@@ -76,7 +76,7 @@ def create_post(request):
 				post = form.save(commit=False)
 				post.username = request.user
 				form.save()
-				messages.success(request, "Record Added...")
+				messages.success(request, "Post Added...")
 				return redirect('home')
 		return render(request, 'create_post.html', {'form':form})
 	else:
@@ -92,7 +92,7 @@ def profile(request):
 
 def music(request):
 	if request.user.is_authenticated:
-		songs = Song.objects.all()
+		songs = Song.objects.all().order_by('title')
 		return render(request, 'music.html', {'songs':songs})
 	
 def upload_music(request):
