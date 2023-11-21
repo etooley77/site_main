@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import LoginUser, Post, Comment
+from .models import LoginUser, Post, Comment, Song
 
 class SignUpForm(UserCreationForm):
 	email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
@@ -55,3 +55,12 @@ class CommentForm(forms.ModelForm):
 		model = Comment
 		fields = ['content']
 		exclude = ("user",)
+
+
+
+class UploadMusic(forms.ModelForm):
+	audio_file = forms.FileField(required=True)
+
+	class Meta:
+		model = Song
+		fields = ['title', 'artist', 'audio_file']

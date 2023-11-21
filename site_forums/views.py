@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import SignUpForm, CreatePost, LoginForm, CommentForm
-from .models import LoginUser, Post, User, Comment, Profile
+from .forms import SignUpForm, CreatePost, LoginForm, CommentForm, UploadMusic
+from .models import LoginUser, Post, User, Comment, Profile, Song
 
 def home(request):
 	if request.user.is_authenticated:
@@ -87,3 +87,25 @@ def profile(request):
 	if request.user.is_authenticated:
 		profile = Profile.objects.all()
 		return render(request, 'profile.html', {'profile':profile})
+	
+### Music Page ###
+
+def music(request):
+	if request.user.is_authenticated:
+		songs = Song.objects.all()
+		return render(request, 'music.html', {'songs':songs})
+	
+def upload_music(request):
+	if request.user.is_authenticated:
+		music = Song.objects.all()
+		form = UploadMusic(request.POST or None, request.FILES)
+		if request.method == "POST":
+			if form.is_valid():
+				form.save()
+				messages.success(request, "Music Uploaded")
+				return redirect('music')
+			return render(request, 'upload_music.html', {'music':music})
+		return render(request, 'upload_music.html', {'form':form, 'music':music})
+	else:
+		messages.success(request, "You Must Be Logged In...")
+		return redirect('home')

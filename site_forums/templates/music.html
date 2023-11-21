@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="jumbotron p-5 text-center bg-image rounded-3" style="
+    background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');
+    height: 400px;
+    width: 100%;
+    ">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+            <br>
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="text-white">
+                    <br>
+                    <h1 class="mb-3">Your Music!</h1>
+                    <h4 class="mb-3">Hello, {{ user.username }}! </h4>
+                    <a class="btn btn-outline-light btn-lg" href="{% url 'upload_music' %}" role="button">Upload a Song!</a>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Song Title</th>
+            <th scope="col">Artist</th>
+            <th scope="col">Date Uploaded</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            {% if songs %}
+
+                {% for song in songs %}
+
+                    <tr>
+                        <th scope="row"> {{ song.title }} </th>
+                        <td> {{ song.artist }} </td>
+                        <td> {{ song.upload_date }} </td>
+                    </tr>
+
+                {% endfor %}
+
+            {% endif %}
+
+        </tbody>
+    </table>
+
+{% endblock %}
