@@ -40,6 +40,11 @@
                         <th scope="row"> {{ song.title }} </th>
                         <td> {{ song.artist }} </td>
                         <td> {{ song.upload_date }} </td>
+                        <td>
+                            <div class="file">
+                                <audio src="{{ song.audio_file.url }}" controls="controls"></audio>
+                            </div>
+                        </td>
                     </tr>
 
                 {% endfor %}
